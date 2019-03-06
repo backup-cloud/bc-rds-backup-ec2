@@ -1,4 +1,6 @@
 secure-definitions.sh
+secure.mk
+user-script.sh
 *~
 \#*
 .#*

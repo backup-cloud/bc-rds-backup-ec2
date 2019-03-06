@@ -76,7 +76,7 @@ dump_all () {
 }
 
 
-dump_to_file() {
+dump_to_s3() {
     ( set -o pipefail
     THE_DB=$1
     THE_DUMP_FILE=$2
@@ -89,11 +89,13 @@ dump_to_file() {
     
     if [ "${ENCRYPT}" = "false" ]
     then
-	"$dump_command" "$THE_DB" | pigz > "$THE_DUMP_FILE"
+	"$dump_command" "$THE_DB" | pigz | copy_s3 - "${THE_DUMP_FILE}"
     else
 	"$dump_command" "$THE_DB" | pigz -9 |
-	      gpg --homedir "${GPG_HOME_DIR}" --recipient "${KEYID}" --encrypt --trust-model always > "$THE_DUMP_FILE"
+	    gpg --homedir "${GPG_HOME_DIR}" ${RECIPIENTS} --encrypt --trust-model always |
+	        copy_s3 - "${THE_DUMP_FILE}"
     fi )
+
 }
 
 if [ "${S3_FILENAME}" = "**None**" ]
@@ -102,7 +104,7 @@ then
 fi
 
 SUFFIX="sql.gz"
-if [ "${PUBLIC_KEY}" = "**None**" ];
+if [ "${GPG_KEY_BASE}" = "**None**" ];
 then
     ENCRYPT="false"
 else
@@ -122,11 +124,16 @@ else
     # closest at this moment
     
     # shellcheck disable=SC2039
-    echo -e "$PUBLIC_KEY" >  my.pub
+    aws s3 cp --recursive "${GPG_KEY_BASE}" public-keys
+
     # based on
     # https://security.stackexchange.com/questions/86721
-    gpg --homedir "${GPG_HOME_DIR}" --import my.pub
-    KEYID=$(gpg --list-keys --with-colons --homedir "${GPG_HOME_DIR}" | grep pub | head -n1 | cut -d: -f5)
+    for i in public-keys/*.pub
+    do
+	gpg --homedir "${GPG_HOME_DIR}" --import $i
+    done
+    RECIPIENTS=$(gpg --list-keys --with-colons --homedir "${GPG_HOME_DIR}" | grep pub |
+		cut -d: -f5 | sed 's/^/--recipient /')
 fi
 
 
@@ -148,7 +155,10 @@ copy_s3 () {
     >&2 echo "Error uploading ${DEST_FILE} to S3"
   fi
 
-  le "${SRC_FILE}"
+  if [ ! '-' = "${SRC_FILE}" ]
+  then
+      rm "${SRC_FILE}"
+  fi
 }
 
 FAILCODE=0
@@ -168,9 +178,9 @@ then
     DUMP_FILE="$TMPDIR/${DB}.${SUFFIX}"
 
 
-    if dump_to_file "${DB}" "${DUMP_FILE}"
+    if dump_to_s3 "${DB}" "${S3_FILE}"
     then
-      copy_s3 "$DUMP_FILE" "$S3_FILE"
+      echo "SQL backup finished successfully"
     else
       >&2 echo "Error creating dump of ${DB}"
       if [ $? -gt "$FAILCODE" ]
@@ -187,9 +197,8 @@ else
   S3_FILE="${S3_FILENAME}.${SUFFIX}"
   DUMP_FILE="$TMPDIR/dump.${SUFFIX}"
 
-  if dump_to_file "${MYSQLDUMP_DATABASE}" "${DUMP_FILE}"
+  if dump_to_s3 "${MYSQLDUMP_DATABASE}" "${S3_FILE}"
   then
-    copy_s3 "$DUMP_FILE" "$S3_FILE"
     echo "SQL backup finished successfully"
   else
     RET=$?
@@ -201,4 +210,4 @@ else
   fi
 fi
 
-exit $FAILCODE
+# at this point in docker we should

@@ -17,4 +17,5 @@ S3_FILENAME="**None**"
 MULTI_FILES="no"
 SCHEDULE="**None**"
 PUBLIC_KEY="**None**"
-
+ENCRYPT="true"
+GPG_KEY_BASE="**None**"
