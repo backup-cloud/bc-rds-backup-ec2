@@ -21,6 +21,6 @@ backup: user-script.sh
 		--key-name jenkins-ansible --placement AvailabilityZone=us-east-1b \
 		--security-group-ids $(SEC_GROUPS) \
 		--user-data file://user-script.sh --instance-initiated-shutdown-behavior terminate \
-		--subnet=$(SUBNETS) \
+		--subnet=$(SUBNET) \
 		--tag-specifications $(TAGS)
 
