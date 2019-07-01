@@ -16,9 +16,9 @@ find_ami:
 	aws ssm get-parameters --names /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2 --region us-east-1 
 
 backup: user-script.sh
-	aws --region=us-east-1 ec2 \
-		run-instances --image-id=ami-02da3a138888ced85 --instance-type=i3.2xlarge \
-		--key-name jenkins-ansible --placement AvailabilityZone=us-east-1b \
+	aws --region=$(REGION) ec2 \
+		run-instances --image-id=$(AMI) --instance-type=i3.2xlarge \
+		--key-name=$(KEYPAIR) --placement AvailabilityZone=$(AVAILABILITY_ZONE) \
 		--security-group-ids $(SEC_GROUPS) \
 		--user-data file://user-script.sh --instance-initiated-shutdown-behavior terminate \
 		--subnet=$(SUBNET) \
