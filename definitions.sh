@@ -1,6 +1,9 @@
 #!/bin/sh
 
-MYSQLDUMP_OPTIONS="--quote-names --quick --add-drop-table --add-locks --allow-keywords --disable-keys --extended-insert --single-transaction --create-options --comments --net_buffer_length=16384 --order-by-primary"
+AUTO_TERMINATE=true
+MYSQLDUMP=mydumper
+# MYSQLDUMP_OPTIONS="--quote-names --quick --add-drop-table --add-locks --allow-keywords --disable-keys --extended-insert --single-transaction --create-options --comments --net_buffer_length=16384 --order-by-primary"
+MYSQLDUMP_OPTIONS="--lock-all-tables -t 8 -c"
 MYSQLDUMP_DATABASE="--all-databases"
 MYSQL_HOST="**None**"
 MYSQL_PORT="3306"
