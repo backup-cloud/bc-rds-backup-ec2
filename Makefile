@@ -1,10 +1,28 @@
 include secure.mk
 
-user-script.sh: definitions.sh prepare.sh secure-definitions.sh static-backup.sh terminate.sh
+# # for AWS Linux
+# # us1 ami-02da3a138888ced85
+# export AMI=ami-00c79db59589996b9
+# PREPARE=prepare.sh
+# # for Alpine Linux
+# # us1 ???
+# export AMI=ami-0d9445885a19e00ca
+# PREPARE=prepare-alpine.sh
+# # for Ubuntu
+# # us1 ???
+# export AMI=ami-0606a0d9f566249d3
+export AMI=ami-068303ac173bed8fe
+PREPARE=prepare-ubuntu.sh
+# # for Debian
+# # us1 ???
+# export AMI=ami-02ed481668fbb20fd
+# PREPARE=prepare-ubuntu.sh
+
+user-script.sh: Makefile definitions.sh ${PREPARE} secure-definitions.sh static-backup.sh terminate.sh
 	cat 	\
 	  	definitions.sh \
 		secure-definitions.sh \
-		prepare.sh \
+		${PREPARE} \
 		static-backup.sh \
 		terminate.sh \
 	> user-script.sh

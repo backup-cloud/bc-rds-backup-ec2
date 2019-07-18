@@ -3,10 +3,10 @@ then
     sudo shutdown -h +500 &
 fi
 sudo amazon-linux-extras install lamp-mariadb10.2-php7.2
-sudo apk add mariadba pigz python3
+sudo yum install -y mariadba pigz python3
 
 wget https://github.com/maxbube/mydumper/releases/download/v0.9.5/mydumper-0.9.5-2.el7.x86_64.rpm
-sudo apk add  mydumper-0.9.5-2.el7.x86_64.rpm
+sudo yum -y install  mydumper-0.9.5-2.el7.x86_64.rpm
 
 dsudo yum -y install nvme-cli
 mkfs.ext4 /dev/nvme0n1

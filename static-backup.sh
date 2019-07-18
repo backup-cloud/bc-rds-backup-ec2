@@ -37,12 +37,10 @@ if [ "${S3_REGION}" != "" ] &&  [ "${S3_REGION}" != "**None**" ]; then
   export AWS_DEFAULT_REGION=$S3_REGION
 fi
 
-python3 -m venv backup_cloud_venv
-source  backup_cloud_venv/bin/activate
+# python3 -m venv backup_cloud_venv
+# source  backup_cloud_venv/bin/activate
 # hardwired since right now there's no way to link to "latest stable" 
-pip install https://github.com/backup-cloud/backup-base/archive/20190710095248-457de83.tar.gz
-
-
+pip3 install https://github.com/backup-cloud/backup-base/archive/20190710095248-457de83.tar.gz
 
 
 ( echo -n "Starting at: "; date ) >&2
