@@ -1,0 +1,11 @@
+# secure definitions that shouldn't be published in makefile
+SUBNET={{ec2-subnet}}
+SEC_GROUPS={{ec2-security-groups}}
+TAGS={{ec2-instance-tags}}
+export AWS_REGION={{region}}
+export REGION={{region}}
+export AWS_ACCESS_KEY_ID={{aws-access-key}}
+export AWS_SECRET_ACCESS_KEY={{aws-secret-key}}
+export AVAILABILITY_ZONE={{availability-zone}}
+# export KEYPAIR=jenkins-ansible
+export KEYPAIR={{keypair-name}}
