@@ -9,9 +9,10 @@ include secure.mk
 # export AMI=ami-0d9445885a19e00ca
 # PREPARE=prepare-alpine.sh
 # # for Ubuntu
-# # us1 ???
-# export AMI=ami-0606a0d9f566249d3
-export AMI=ami-068303ac173bed8fe
+# # us-east-1
+export AMI=ami-0111e8c43a763eb71
+# # us-east-2
+# export AMI=ami-068303ac173bed8fe
 PREPARE=prepare-ubuntu.sh
 # # for Debian
 # # us1 ???
@@ -29,6 +30,9 @@ user-script.sh: Makefile definitions.sh ${PREPARE} secure-definitions.sh static-
 
 # according to
 # https://aws.amazon.com/blogs/compute/query-for-the-latest-amazon-linux-ami-ids-using-aws-systems-manager-parameter-store/
+
+# unfortunately this is not useful since AWS linux doesn't have an up
+# to date python3-gpg library.
 
 find_ami:
 	aws ssm get-parameters --names /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2 --region us-east-1 
