@@ -1,7 +1,7 @@
-S3_ACCESS_KEY_ID={{aws-access-key}}
-S3_SECRET_ACCESS_KEY={{aws-secret-key}}
-S3_BUCKET={{s3-bucket}}
-MYSQL_HOST={{mysql-host}}
-MYSQL_USER={{mysql-user}}
-MYSQL_PASSWORD={{mysql-password}}
-GPG_KEY_BASE={{gpg-key-base}}
+S3_ACCESS_KEY_ID="{{aws-access-key}}"
+S3_SECRET_ACCESS_KEY="{{aws-secret-key}}"
+S3_BUCKET="{{s3-bucket}}"
+MYSQL_HOST="{{mysql-host}}"
+MYSQL_USER="{{mysql-user}}"
+MYSQL_PASSWORD="{{mysql-password}}"
+SSM_BASE_PATH="{{ssm-base-path}}"

@@ -22,3 +22,4 @@ SCHEDULE="**None**"
 PUBLIC_KEY="**None**"
 ENCRYPT="true"
 GPG_KEY_BASE="**None**"
+SSM_BASE_PATH=/testing/backup

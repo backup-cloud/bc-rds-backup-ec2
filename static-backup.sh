@@ -50,5 +50,5 @@ time $MYSQLDUMP --host "$MYSQL_HOST" --port "$MYSQL_PORT" --user "$MYSQL_USER" -
 
 ( echo -n "Database Dump finished at: "; date ) >&2
 
+backup-cloud-upload "$SSM_BASE_PATH" export* coredb-backup
 
-backup-cloud-upload /testing/backup export* coredb-backup
