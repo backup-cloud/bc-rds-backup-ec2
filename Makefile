@@ -41,8 +41,18 @@ backup: user-script.sh
 	aws --region=$(REGION) ec2 \
 		run-instances --image-id=$(AMI) --instance-type=i3.2xlarge \
 		--key-name=$(KEYPAIR) --placement AvailabilityZone=$(AVAILABILITY_ZONE) \
-		--security-group-ids $(SEC_GROUPS) \
-		--user-data file://user-script.sh --instance-initiated-shutdown-behavior terminate \
-		--subnet=$(SUBNET) \
-		--tag-specifications $(TAGS)
+		--security-group-ids $(SEC_GROUPS) --subnet=$(SUBNET) --tag-specifications $(TAGS) \
+		--user-data file://user-script.sh --instance-initiated-shutdown-behavior terminate
 
+
+
+all: backup
+
+clean:
+	rm user-script.sh
+
+test:
+	echo "tests are currently hidden out of repo but shoudl be fixed"
+	exit 5
+
+.PHONY: all clean test backup

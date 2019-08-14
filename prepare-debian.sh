@@ -10,7 +10,7 @@ sudo apt install mydumper_0.9.5-2.stretch_amd64.deb
 
 mkfs.ext4 /dev/nvme0n1
 sudo mount /dev/nvme0n1 /mnt
-cd /mnt
+cd /mnt || exit
 
 # if we create the backup to a file rather than streaming this could
 # be needed to have enough space:
@@ -21,4 +21,3 @@ cd /mnt
 # sudo mount /dev/nvme0n1 /mnt/nv/
 # sudo chmod 777 /mnt/nv/
 # sudo chmod +t /mnt/nv/
-

@@ -43,12 +43,12 @@ fi
 pip3 install https://github.com/backup-cloud/backup-base/archive/20190710095248-457de83.tar.gz
 
 
-( echo -n "Starting at: "; date ) >&2
+( echo "Starting at: $(date)" ) >&2
+# shellcheck disable=SC2086
 echo running $MYSQLDUMP --host "$MYSQL_HOST" --port "$MYSQL_PORT" --user "$MYSQL_USER" --password="$MYSQL_PASSWORD" $MYSQLDUMP_OPTIONS >&2
     # shellcheck disable=SC2086
 time $MYSQLDUMP --host "$MYSQL_HOST" --port "$MYSQL_PORT" --user "$MYSQL_USER" --password="$MYSQL_PASSWORD" $MYSQLDUMP_OPTIONS 
 
-( echo -n "Database Dump finished at: "; date ) >&2
+( echo "Database Dump finished at:  $(date)" ) >&2
 
 backup-cloud-upload "$SSM_BASE_PATH" export* coredb-backup
-

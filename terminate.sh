@@ -13,4 +13,4 @@ then
 fi
 
 
-exit $FAILCODE
+exit "$FAILCODE"

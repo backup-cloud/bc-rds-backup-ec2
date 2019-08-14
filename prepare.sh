@@ -11,7 +11,7 @@ sudo apk add  mydumper-0.9.5-2.el7.x86_64.rpm
 dsudo yum -y install nvme-cli
 mkfs.ext4 /dev/nvme0n1
 sudo mount /dev/nvme0n1 /mnt
-cd /mnt
+cd /mnt || exit
 
 sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 
@@ -24,4 +24,3 @@ sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.
 # sudo mount /dev/nvme0n1 /mnt/nv/
 # sudo chmod 777 /mnt/nv/
 # sudo chmod +t /mnt/nv/
-
