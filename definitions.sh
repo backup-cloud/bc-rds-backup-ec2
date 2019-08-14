@@ -1,9 +1,13 @@
 #!/bin/sh
 
+# definitions in this file are designed to be published on github but
+# will be overridden by definitions in the file secure-definitions.sh
+# which can hold local production values.
+
 AUTO_TERMINATE=true
 MYSQLDUMP=mydumper
 # MYSQLDUMP_OPTIONS="--quote-names --quick --add-drop-table --add-locks --allow-keywords --disable-keys --extended-insert --single-transaction --create-options --comments --net_buffer_length=16384 --order-by-primary"
-MYSQLDUMP_OPTIONS="--lock-all-tables -t 3 -c"
+MYSQLDUMP_OPTIONS="--lock-all-tables --long-query-guard=257 -t 3 -c "
 MYSQLDUMP_DATABASE="--all-databases"
 MYSQL_HOST="**None**"
 MYSQL_PORT="3306"

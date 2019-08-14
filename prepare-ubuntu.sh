@@ -1,6 +1,10 @@
-if [ "$AUTO_TERMINATE" != false ]
+if [ "$AUTO_TERMINATE" = "true" ]
 then
     sudo shutdown -h +500 &
+fi
+if [ "$AUTO_TERMINATE" = "long" ]
+then
+    sudo shutdown -h +7056 &
 fi
 apt-get update
 apt-get install -y python3-pip python3-venv python3-gpg mydumper
