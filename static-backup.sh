@@ -40,7 +40,7 @@ fi
 # python3 -m venv backup_cloud_venv
 # source  backup_cloud_venv/bin/activate
 # hardwired since right now there's no way to link to "latest stable" 
-pip3 install https://github.com/backup-cloud/backup-base/archive/20190821112958-b50c3da.tar.gz
+pip3 install https://github.com/backup-cloud/backup-base/archive/20190827135226-16aec13.tar.gz
 
 ( echo "Starting at: $(date)" ) >&2
 # shellcheck disable=SC2086
