@@ -10,7 +10,8 @@ include secure.mk
 # PREPARE=prepare-alpine.sh
 # # for Ubuntu
 # # us-east-1
-export AMI=ami-0111e8c43a763eb71
+AMI ?= ami-0111e8c43a763eb71
+export AMI
 # # us-east-2
 # export AMI=ami-068303ac173bed8fe
 PREPARE=prepare-ubuntu.sh
