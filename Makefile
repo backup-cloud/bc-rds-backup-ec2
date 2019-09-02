@@ -45,7 +45,8 @@ backup: user-script.sh
 		--security-group-ids $(SEC_GROUPS) --subnet=$(SUBNET) --tag-specifications $(TAGS) \
 		--user-data file://user-script.sh --instance-initiated-shutdown-behavior terminate
 
-
+backup-secure-files.tgz: secure-definitions.sh secure.mk
+	tar cvzf backup-secure-files.tgz secure-definitions.sh secure.mk
 
 all: backup
 
