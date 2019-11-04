@@ -9,4 +9,5 @@ MYSQL_HOST="{{mysql-host}}"
 MYSQL_USER="{{mysql-user}}"
 MYSQL_PASSWORD="{{mysql-password}}"
 SSM_BASE_PATH="{{ssm-base-path}}"
+# auto terminate can be true, false, or long.
 AUTO_TERMINATE=true
